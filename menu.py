@@ -34,7 +34,7 @@ def menu(message):
 @bot.message_handler(commands=['tmr'])
 def tmr(message):
   n = int(date) + 1
-  send = f'{n}.jpg'
+  send = f'menus/{n}.png'
   if date == date:
     try:
       with open(send, 'rb') as photo:
