@@ -21,7 +21,7 @@ def start(message):
 
 @bot.message_handler(commands=['menu'])
 def menu(message):
-  send = f'{date}.jpg'
+  send = f'menus/{date}.png'
   if date == date:
     try:
       with open(send, 'rb') as photo:
@@ -35,13 +35,12 @@ def menu(message):
 def tmr(message):
   n = int(date) + 1
   send = f'menus/{n}.png'
-  if date == date:
-    try:
-      with open(send, 'rb') as photo:
-       bot.send_photo(message.chat.id, photo)
-       bot.send_message(message.chat.id, f"This is the menu for tomorrow.")
-      
-    except FileNotFoundError:
-      bot.send_message(message.chat.id, "No photo 'yet'..")
+  try:
+    with open(send, 'rb') as photo:
+      bot.send_photo(message.chat.id, photo)
+      bot.send_message(message.chat.id, f"This is the menu for tomorrow.")
+    
+  except FileNotFoundError:
+    bot.send_message(message.chat.id, "No photo 'yet'..")
       
 bot.polling()
