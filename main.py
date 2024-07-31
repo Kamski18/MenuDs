@@ -46,6 +46,8 @@ def menu(message):
 def tmr(message):
     refresh_date()
     n = int(date) + 1
+    if n == 32:
+        n = 1
     send = f"menus/{n}.png"
     try:
         with open(send, "rb") as photo:
