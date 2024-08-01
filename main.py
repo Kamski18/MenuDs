@@ -32,7 +32,7 @@ def start(message):
 @bot.message_handler(commands=["menu"])
 def menu(message):
     refresh_date()
-    date = date.lstrip(0)
+    date = date.lstrip("0")
     send = f"menus/{date}.png"
     try:
         with open(send, "rb") as photo:
@@ -46,7 +46,7 @@ def menu(message):
 @bot.message_handler(commands=["tmr"])
 def tmr(message):
     refresh_date()
-    date = date.lstrip(0)
+    date = date.lstrip("0")
     n = int(date) + 1
     if n == 32:
         n = 1
