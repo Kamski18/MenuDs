@@ -60,4 +60,4 @@ def tmr(message):
         bot.send_message(message.chat.id, "No photo 'yet'..")
 
 
-bot.polling()
+bot.infinity_polling()
