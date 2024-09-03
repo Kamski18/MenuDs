@@ -51,7 +51,7 @@ def menu(message):
                 bot.send_message(message.chat.id, "A mere quiz.")
                 idss.append(message.chat.id)
     except FileNotFoundError:
-        pass
+        bot.send_message(message.chat.id, "none")
 
 
 @bot.message_handler(commands=["dd56"])
