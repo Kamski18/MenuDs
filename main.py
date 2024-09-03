@@ -41,7 +41,7 @@ def menu(message):
 
     except FileNotFoundError:
         bot.send_message(message.chat.id, "No photo 'yet'..")
-    snd = "first.png"
+    snd = f"first.png"
     try:
         with open(snd, "rb") as photo:
             if message.chat.id in idss:
