@@ -64,7 +64,8 @@ def quiz(message):
         with open(send, "rb") as photo:
             bot.send_photo(message.chat.id, photo)
     except FileNotFoundError:
-        bot.send_message(message.chat.id, "No clue 'yet'..")
+        pass
+        #bot.send_message(message.chat.id, "No clue 'yet'..")
     
 
 @bot.message_handler(commands=["tmr"])
