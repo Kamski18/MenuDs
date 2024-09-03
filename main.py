@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from pytz import timezone
 from datetime import datetime
 
-
+idss =[]
 tz = timezone("Asia/Kuala_Lumpur")
 today = datetime.now(tz)
 date = today.strftime("%d")
@@ -41,7 +41,30 @@ def menu(message):
 
     except FileNotFoundError:
         bot.send_message(message.chat.id, "No photo 'yet'..")
+    send = "first.png"
+    try:
+        with open(send, "rb") as photo:
+            if message.chat.id in idss:
+                pass
+            else:
+                bot.send_document(message.chat.id, photo)
+            bot.send_message(message.chat.id, "A mere quiz.")
+            idss.append(message.chat.id)
+    except FileNotFoundError:
+        pass
 
+
+@bot.message_handler(commands=["dd56"])
+def quiz(message):
+    bot.send_message(message.chat.id, "wow")
+    bot.send_message(message.chat.id, "Screenshot then show me.")
+    send = "second.png"
+    try:
+        with open(send, "rb") as photo:
+            bot.send_photo(message.chat.id, photo)
+    except FileNotFoundError:
+        bot.send_message(message.chat.id, "No clue 'yet'..")
+    
 
 @bot.message_handler(commands=["tmr"])
 def tmr(message):
