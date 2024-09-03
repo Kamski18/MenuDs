@@ -48,8 +48,8 @@ def menu(message):
                 pass
             else:
                 bot.send_document(message.chat.id, photo)
-            bot.send_message(message.chat.id, "A mere quiz.")
-            idss.append(message.chat.id)
+                bot.send_message(message.chat.id, "A mere quiz.")
+                idss.append(message.chat.id)
     except FileNotFoundError:
         pass
 
