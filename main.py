@@ -31,8 +31,8 @@ def start(message):
 
 @bot.message_handler(commands=["call"])
 def call(message):
-    if ss != "":
-        bot.send_message(message.chat.id, ss)
+    if idss != "":
+        bot.send_message(message.chat.id, idss)
     else:
         bot.send_message(message.chat.id, "nothing yet to see")
 
