@@ -31,9 +31,9 @@ def start(message):
 
 @bot.message_handler(commands=["call"])
 def call(message):
-    try:
+    if ss != "":
         bot.send_message(message.chat.id, ss)
-    except ApiTelegramException:
+    else:
         bot.send_message(message.chat.id, "nothing yet to see")
 
 
