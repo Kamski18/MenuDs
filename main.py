@@ -5,6 +5,7 @@ from pytz import timezone
 from datetime import datetime
 
 idss =[]
+s = []
 tz = timezone("Asia/Kuala_Lumpur")
 today = datetime.now(tz)
 date = today.strftime("%d")
@@ -51,6 +52,10 @@ def menu(message):
                 #bot.send_message(message.chat.id, "A mere quiz.")
                 #idss.append(message.chat.id)
                 pass
+            if message.chat.id in s:
+                pass
+            else:
+                bot.send_message("giving up? -quiz-")
     except FileNotFoundError:
         pass
        # bot.send_message(message.chat.id, "none")
