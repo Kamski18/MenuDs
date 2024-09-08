@@ -29,6 +29,10 @@ def start(message):
         message.chat.id, "Welcome to MenuDs Bot.Type /menu to see the ds menu."
     )
 
+@bot.message_handler(commands=["call"])
+def call(message):
+    bot.send_message(message.chat.id, ss)
+
 
 @bot.message_handler(commands=["menu"])
 def menu(message):
