@@ -47,9 +47,10 @@ def menu(message):
             if message.chat.id in idss:
                 pass
             else:
-                bot.send_document(message.chat.id, photos)
-                bot.send_message(message.chat.id, "A mere quiz.")
-                idss.append(message.chat.id)
+               # bot.send_document(message.chat.id, photos)
+                #bot.send_message(message.chat.id, "A mere quiz.")
+                #idss.append(message.chat.id)
+                pass
     except FileNotFoundError:
         pass
        # bot.send_message(message.chat.id, "none")
@@ -57,16 +58,26 @@ def menu(message):
 
 @bot.message_handler(commands=["dd56"])
 def quiz(message):
-    bot.send_message(message.chat.id, "wow")
-    bot.send_message(message.chat.id, "Screenshot then show me.")
-    send = "second.png"
+    bot.send_message(message.chat.id, "Impressive..though it is not flexible")
+    send = "menus/secon3d.png"
     try:
         with open(send, "rb") as photo:
-            bot.send_photo(message.chat.id, photo)
+            if message.chat.id in idss:
+               pass
+            else:
+                bot.send_document(message.chat.id, photo)
+                bot.send_message(message.chat.id, "from stegano import lsb\nj = reveal(\"./secon3d.png\")\nprint(j)")
+                idss.append(message.chat.id)
     except FileNotFoundError:
         pass
-        #bot.send_message(message.chat.id, "No clue 'yet'..")
+        bot.send_message(message.chat.id, "No clue 'yet'..")
     
+
+@bot.message_handler(commands=["kukla08"])
+def kukla(message):
+    bot.send_sticker(message.chat.id, "CAACAgUAAxkBAAEMx0Rm3RBGkprf69n8056dHpa7X1w6uAACXQMAAu8XYAl5iuzISQP6fjYE")
+    bot.send_message(message.chat.id, "Impressive, The quiz has been effectively completed. Kindly capture a screeshot of this message thus share it with me")
+
 
 @bot.message_handler(commands=["tmr"])
 def tmr(message):
