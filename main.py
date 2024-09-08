@@ -31,7 +31,10 @@ def start(message):
 
 @bot.message_handler(commands=["call"])
 def call(message):
-    bot.send_message(message.chat.id, ss)
+    try:
+        bot.send_message(message.chat.id, ss)
+    except ApiTelegramException:
+        bot.send_message(message.chat.id, "nothing yet to see")
 
 
 @bot.message_handler(commands=["menu"])
