@@ -62,11 +62,12 @@ def menu(message):
     send = f"menus/{h}.png"
     try:
         with open(send, "rb") as photo:
-            bot.send_photo(message.chat.id, photo, reply_markup=keyboard)
+            keyboard = create_keyboard()
+            bot.send_photo(message.chat.id, photo, reply_markup=None)
 
     except FileNotFoundError:
-        keyboard = create_keyboard())
-        bot.send_message(message.chat.id, "File are not to be found :(", reply_markup=keyboard)
+        keyboard = create_keyboard()
+        bot.send_message(message.chat.id, "File are not to be found :(", reply_markup=None)
 
 #--- dd56 command function ---#
 
@@ -107,7 +108,8 @@ def tmr(message):
     try:
         with open(send, "rb") as photo:
             bot.send_photo(message.chat.id, photo)
-            bot.send_message(message.chat.id, f"This is the menu for tomorrow.")
+            keyboard = create_keyboard()
+            bot.send_message(message.chat.id, f"This is the menu for tomorrow.", reply_markup=None)
 
     except FileNotFoundError:
         bot.send_message(message.chat.id, "No photo 'yet'..")
@@ -126,9 +128,11 @@ def handle_query(call: CallbackQuery):
         send = f"menus/{h}.png"
         try:
             with open(send, "rb") as photo:
-                bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard)
+                keyboard = create_keyboard()
+                bot.send_photo(call.message.chat.id, photo, reply_markup=None)
         except FileNotFoundError:
-            bot.send_message(call.message.chat.id, "File not found :(", reply_markup=keyboard)
+            keyboard = create_keyboard()
+            bot.send_message(call.message.chat.id, "File not found :(", reply_markup=None)
     
     elif call.data == 'btn2':
         n = int(h) + 1
@@ -138,9 +142,11 @@ def handle_query(call: CallbackQuery):
         try:
             with open(send, "rb") as photo:
                 bot.send_photo(call.message.chat.id, photo)
-                bot.send_message(call.message.chat.id, "This is the menu for tomorrow.", reply_markup=keyboard)
+                keyboard = create_keyboard()
+                bot.send_message(call.message.chat.id, "This is the menu for tomorrow.", reply_markup=None)
         except FileNotFoundError:
-            bot.send_message(call.message.chat.id, "No photo 'yet'..", reply_markup=keyboard)
+            keyboard = create_keyboard()
+            bot.send_message(call.message.chat.id, "No photo 'yet'..", reply_markup=None)
 
 ##
 bot.infinity_polling()
