@@ -14,9 +14,12 @@ today = datetime.now(tz)
 date = today.strftime("%d")
 day = today.strftime("%d / %B / %Y")
 
-keyboard = km()
-button1 = kb("Menu", callback_data="btn1")
-button2 = kb("Tomorrow", callback_data="btn2")
+def create_keyboard():
+    keyboard = km()
+    button1 = kb("Menu", callback_data="btn1")
+    button2 = kb("Tomorrow", callback_data="btn2")
+    keyboard.add(button1, button2)
+    return keyboard
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
@@ -35,7 +38,7 @@ def refresh_date():
 
 @bot.message_handler(commands=["start"])
 def start(message):
-    keyboard.add(button1, button2)
+    keyboard = create_keyboard()
     bot.send_message(message.chat.id, "Welcome to MenuDs Bot.Type /menu to see the ds menu.", reply_markup=keyboard)
 
 
@@ -59,11 +62,11 @@ def menu(message):
     send = f"menus/{h}.png"
     try:
         with open(send, "rb") as photo:
-            keyboard.add(button1, button2)
+            keyboard = create_keyboard()
             bot.send_photo(message.chat.id, photo, reply_markup=keyboard)
 
     except FileNotFoundError:
-        keyboard.add(button1, button2)
+        keyboard = create_keyboard())
         bot.send_message(message.chat.id, "File are not to be found :(", reply_markup=keyboard)
 
 #--- dd56 command function ---#
@@ -124,7 +127,7 @@ def handle_query(call: CallbackQuery):
         send = f"menus/{h}.png"
         try:
             with open(send, "rb") as photo:
-                keyboard.add(button1, button2)
+                keyboard = create_keyboard()
                 bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard)
         except FileNotFoundError:
             bot.send_message(call.message.chat.id, "File not found :(", reply_markup=keyboard)
@@ -137,7 +140,7 @@ def handle_query(call: CallbackQuery):
         try:
             with open(send, "rb") as photo:
                 bot.send_photo(call.message.chat.id, photo)
-                keyboard.add(button1, button2)
+                keyboard = create_keyboard()
                 bot.send_message(call.message.chat.id, "This is the menu for tomorrow.", reply_markup=keyboard)
         except FileNotFoundError:
             bot.send_message(call.message.chat.id, "No photo 'yet'..", reply_markup=keyboard)
