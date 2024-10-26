@@ -1,20 +1,29 @@
-import telebot
+import telebot 
 import os
 from dotenv import load_dotenv
 from pytz import timezone
 from datetime import datetime
+from telebot.types import InlineKeyboardButton as kb
+from telebot.types import InlineKeyboardMarkup as km
+from telebot.types import CallbackQuery
+#--- All variable are stated here ---#
 
 idss =[]
-ss = []
 tz = timezone("Asia/Kuala_Lumpur")
 today = datetime.now(tz)
 date = today.strftime("%d")
 day = today.strftime("%d / %B / %Y")
 
+keyboard = km()
+button1 = kb("Menu", callback_data="btn1")
+button2 = kb("Tomorrow", callback_data="btn2")
+
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
 bot = telebot.TeleBot(API_KEY)
 
+
+#--- Refresh date function ---#
 
 def refresh_date():
     global today, date, day
@@ -22,12 +31,17 @@ def refresh_date():
     date = today.strftime("%d")
     day = today.strftime("%d / %B / %Y")
 
+#--- Start command function ---#
 
 @bot.message_handler(commands=["start"])
 def start(message):
-    bot.send_message(
-        message.chat.id, "Welcome to MenuDs Bot.Type /menu to see the ds menu."
-    )
+    keyboard.add(button1, button2)
+    bot.send_message(message.chat.id, "Welcome to MenuDs Bot.Type /menu to see the ds menu.", reply_markup=keyboard)
+
+
+
+
+#--- Call command function ---#
 
 @bot.message_handler(commands=["call"])
 def call(message):
@@ -36,6 +50,7 @@ def call(message):
     else:
         bot.send_message(message.chat.id, "nothing yet to see")
 
+#--- Menu command function ---#
 
 @bot.message_handler(commands=["menu"])
 def menu(message):
@@ -44,30 +59,14 @@ def menu(message):
     send = f"menus/{h}.png"
     try:
         with open(send, "rb") as photo:
-            bot.send_photo(message.chat.id, photo)
-            bot.send_message(message.chat.id, f"This is the menu for : {day}")
+            keyboard.add(button1, button2)
+            bot.send_photo(message.chat.id, photo, reply_markup=keyboard)
 
     except FileNotFoundError:
-        bot.send_message(message.chat.id, "No photo 'yet'..")
-    snd = "menus/first.png"
-    if message.chat.id in ss:
-        pass
-    else:
-        bot.send_message("giving up? -quiz-")
-        ss.append(message.chat.id)
-    try:
-        with open(snd, "rb") as photos:
-            if message.chat.id in idss:
-                pass
-            else:
-               # bot.send_document(message.chat.id, photos)
-                #bot.send_message(message.chat.id, "A mere quiz.")
-                #idss.append(message.chat.id)
-                pass
-    except FileNotFoundError:
-        pass
-       # bot.send_message(message.chat.id, "none")
+        keyboard.add(button1, button2)
+        bot.send_message(message.chat.id, "File are not to be found :(", reply_markup=keyboard)
 
+#--- dd56 command function ---#
 
 @bot.message_handler(commands=["dd56"])
 def quiz(message):
@@ -86,11 +85,14 @@ def quiz(message):
         bot.send_message(message.chat.id, "No clue 'yet'..")
     
 
+#--- kukla08 command function ---#
+
 @bot.message_handler(commands=["kukla08"])
 def kukla(message):
     bot.send_sticker(message.chat.id, "CAACAgUAAxkBAAEMx0Rm3RBGkprf69n8056dHpa7X1w6uAACXQMAAu8XYAl5iuzISQP6fjYE")
     bot.send_message(message.chat.id, "Impressive, The quiz has been effectively completed. Kindly capture a screeshot of this message thus share it with me")
 
+#--- tmr command function ---#
 
 @bot.message_handler(commands=["tmr"])
 def tmr(message):
@@ -109,4 +111,36 @@ def tmr(message):
         bot.send_message(message.chat.id, "No photo 'yet'..")
 
 
+#---callback responds---#
+
+@bot.callback_query_handler(func=lambda call: call.data in ['btn1', 'btn2'])
+def handle_query(call: CallbackQuery):
+    bot.answer_callback_query(call.id)
+    refresh_date()
+    
+    h = date.lstrip("0")
+    
+    if call.data == 'btn1':
+        send = f"menus/{h}.png"
+        try:
+            with open(send, "rb") as photo:
+                keyboard.add(button1, button2)
+                bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard)
+        except FileNotFoundError:
+            bot.send_message(call.message.chat.id, "File not found :(", reply_markup=keyboard)
+    
+    elif call.data == 'btn2':
+        n = int(h) + 1
+        if n == 32:  # Assuming the menus reset after 31
+            n = 1
+        send = f"menus/{n}.png"
+        try:
+            with open(send, "rb") as photo:
+                bot.send_photo(call.message.chat.id, photo)
+                keyboard.add(button1, button2)
+                bot.send_message(call.message.chat.id, "This is the menu for tomorrow.", reply_markup=keyboard)
+        except FileNotFoundError:
+            bot.send_message(call.message.chat.id, "No photo 'yet'..", reply_markup=keyboard)
+
+##
 bot.infinity_polling()
