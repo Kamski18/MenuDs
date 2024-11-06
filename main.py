@@ -32,7 +32,7 @@ def refresh_date():
     global today, date, day
     today = datetime.now(tz)
     date = today.strftime("%d")
-    day = today.strftime("%d / %B / %Y")
+    day = today.strftime("%d : %B : %Y")
 
 #--- Start command function ---#
 
