@@ -64,7 +64,7 @@ def menu(message):
     try:
         with open(send, "rb") as photo:
             keyboard = create_keyboard()
-            bot.send_photo(message.chat.id, photo, reply_markup=keyboard)
+            bot.send_photo(message.chat.id, photo)
             bot.send_message(message.chat.id, f"This is the menu for: {day}", reply_markup=keyboard)
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
 
