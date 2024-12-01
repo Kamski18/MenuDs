@@ -113,8 +113,8 @@ def tmr(message):
     try:
         with open(send, "rb") as photo:
             keyboard = create_keyboard()
-            tmt = bot.send_photo(message.chat.id, photo, reply_markup=keyboard).message_id
             global tmt
+            tmt = bot.send_photo(message.chat.id, photo, reply_markup=keyboard).message_id
             #bot.send_message(message.chat.id, f"This is the menu for tomorrow.", reply_markup=keyboard)
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
 
