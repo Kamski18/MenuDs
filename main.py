@@ -13,6 +13,7 @@ tz = timezone("Asia/Kuala_Lumpur")
 today = datetime.now(tz)
 date = today.strftime("%d")
 day = today.strftime("%d / %B / %Y")
+tmrd = today.strftime("%d") + datetime.timedelta(days=1)
 
 def create_keyboard():
     keyboard = km()
@@ -104,8 +105,8 @@ def kukla(message):
 @bot.message_handler(commands=["tmr"])
 def tmr(message):
     refresh_date()
-    h = date.lstrip("0")
-    n = int(h) + 1
+    
+    n = tmrd
     if n == 32:
         n = 1
     send = f"menus/{n}.png"
