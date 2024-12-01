@@ -2,7 +2,7 @@ import telebot
 import os
 from dotenv import load_dotenv
 from pytz import timezone
-from datetime import datetime, timedelta
+from datetime import datetime
 from telebot.types import InlineKeyboardButton as kb
 from telebot.types import InlineKeyboardMarkup as km
 from telebot.types import CallbackQuery
@@ -13,7 +13,7 @@ tz = timezone("Asia/Kuala_Lumpur")
 today = datetime.now(tz)
 date = today.strftime("%d")
 day = today.strftime("%d / %B / %Y")
-tmrd = today.strftime("%d") + datetime.timedelta(days=1)
+#tmrd = today.strftime("%d") + datetime.timedelta(days=1)
 
 def create_keyboard():
     keyboard = km()
@@ -105,8 +105,8 @@ def kukla(message):
 @bot.message_handler(commands=["tmr"])
 def tmr(message):
     refresh_date()
-    
-    n = tmrd
+    h = date.lstrip(0)
+    n = int(h) + 1
     if n == 32:
         n = 1
     send = f"menus/{n}.png"
