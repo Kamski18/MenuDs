@@ -154,7 +154,7 @@ def handle_query(call: CallbackQuery):
         try:
             with open(send, "rb") as photo:
                 global tmt
-                bot.delete_message(call.message.chat.id, tm)
+                bot.delete_message(call.message.chat.id, tmt)
                 bot.send_photo(call.message.chat.id, photo)
                 keyboard = create_keyboard()
                 bot.send_message(call.message.chat.id, "This is the menu for tomorrow.", reply_markup=keyboard)
