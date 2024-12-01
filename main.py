@@ -112,7 +112,7 @@ def tmr(message):
     send = f"menus/{n}.png"
     try:
         with open(send, "rb") as photo:
-            tm = bot.send_photo(message.chat.id, photo).message_id
+            tm = bot.send_photo(message.chat.id, photo, reply_markup=keyboard).message_id
             keyboard = create_keyboard()
             #bot.send_message(message.chat.id, f"This is the menu for tomorrow.", reply_markup=keyboard)
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
@@ -135,7 +135,7 @@ def handle_query(call: CallbackQuery):
         try:
             with open(send, "rb") as photo:
                 global men 
-                bot.delete(call.message.chat.id, men)
+                bot.delete_message(call.message.chat.id, men)
                 keyboard = create_keyboard()
                 bot.send_photo(call.message.chat.id, photo)
                 bot.send_message(call.message.chat.id, f"This is the menu for: {day}", reply_markup=keyboard)
@@ -153,7 +153,7 @@ def handle_query(call: CallbackQuery):
         try:
             with open(send, "rb") as photo:
                 global tm
-                bot.delete(call.message.chat.id, tm)
+                bot.delete_message(call.message.chat.id, tm)
                 bot.send_photo(call.message.chat.id, photo)
                 keyboard = create_keyboard()
                 bot.send_message(call.message.chat.id, "This is the menu for tomorrow.", reply_markup=keyboard)
