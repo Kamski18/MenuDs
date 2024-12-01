@@ -2,7 +2,7 @@ import telebot
 import os
 from dotenv import load_dotenv
 from pytz import timezone
-from datetime import datetime
+from datetime import datetime, timedelta
 from telebot.types import InlineKeyboardButton as kb
 from telebot.types import InlineKeyboardMarkup as km
 from telebot.types import CallbackQuery
