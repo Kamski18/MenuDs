@@ -114,8 +114,8 @@ def tmr(message):
     try:
         with open(send, "rb") as photo:
             keyboard = create_keyboard()
-            global tmt
-            tmt = bot.send_photo(message.chat.id, photo, reply_markup=keyboard).message_id
+            global men
+            men = bot.send_photo(message.chat.id, photo, reply_markup=keyboard).message_id
             #bot.send_message(message.chat.id, f"This is the menu for tomorrow.", reply_markup=keyboard)
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
 
@@ -127,12 +127,13 @@ def tmr(message):
 
 @bot.callback_query_handler(func=lambda call: call.data in ['btn1', 'btn2'])
 def handle_query(call: CallbackQuery):
-    global tmt, men
+    global  men
     bot.answer_callback_query(call.id)
     refresh_date()
     h = date.lstrip("0")
 
     if call.data == 'btn1':
+        
         send = f"menus/{h}.png"
     elif call.data == 'btn2':
         n = int(h) + 1
@@ -144,16 +145,16 @@ def handle_query(call: CallbackQuery):
         with open(send, "rb") as photo:
             if call.data == 'btn1' and men is not None:
                 bot.delete_message(call.message.chat.id, men)
-            if call.data == 'btn2' and tmt is not None:
-                bot.delete_message(call.message.chat.id, tmt)
+            #if call.data == 'btn2' and tmt is not None:
+                #bot.delete_message(call.message.chat.id, tmt)
                 
             keyboard = create_keyboard()
             message_id = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
             
             if call.data == 'btn1':
                 men = message_id
-            elif call.data == 'btn2':
-                tmt = message_id
+            #elif call.data == 'btn2':
+                #tmt = message_id
     except FileNotFoundError:
         bot.send_message(call.message.chat.id, "File not found :(")
 ##
