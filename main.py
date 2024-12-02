@@ -151,10 +151,10 @@ def handle_query(call: CallbackQuery):
             keyboard = create_keyboard()
             message_id = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
             
-            if call.data == 'btn1', 'btn2':
+            if call.data == 'btn1':
                 men = message_id
-            #elif call.data == 'btn2':
-                #tmt = message_id
+            elif call.data == 'btn2':
+                men = message_id
     except FileNotFoundError:
         bot.send_message(call.message.chat.id, "File not found :(")
 ##
