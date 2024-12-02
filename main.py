@@ -127,59 +127,34 @@ def tmr(message):
 
 @bot.callback_query_handler(func=lambda call: call.data in ['btn1', 'btn2'])
 def handle_query(call: CallbackQuery):
+    global tmt, men
     bot.answer_callback_query(call.id)
     refresh_date()
-    
     h = date.lstrip("0")
-    
+
     if call.data == 'btn1':
         send = f"menus/{h}.png"
-        try:
-            with open(send, "rb") as photo:
-                global men 
-                global tmt
-                if tmt is not None:
-                    bot.delete_message(call.message.chat.id, tmt)
-                    keyboard = create_keyboard()
-                    tmt = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
-                    #bot.send_message(call.message.chat.id, f"This is the menu for: {day}", reply_markup=keyboard)
-                    bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
-                elif men is not None:
-                    bot.delete_message(call.message.chat.id, men)
-                    keyboard = create_keyboard()
-                    men = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
-                    #bot.send_message(call.message.chat.id, f"This is the menu for: {day}", reply_markup=keyboard)
-                    bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
-        except FileNotFoundError:
-            keyboard = create_keyboard()
-            bot.send_message(call.message.chat.id, "File not found :(", reply_markup=keyboard)
-            bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
-    
     elif call.data == 'btn2':
         n = int(h) + 1
-        if n == 32:  # Assuming the menus reset after 31
+        if n == 32:
             n = 1
         send = f"menus/{n}.png"
-        try:
-            with open(send, "rb") as photo:
-                global tmt
-                global men
-                if tmt is not None:
-                    bot.delete_message(call.message.chat.id, tmt)
-                    keyboard = create_keyboard()
-                    tmt = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
-                #bot.send_message(call.message.chat.id, "This is the menu for tomorrow.", reply_markup=keyboard)
-                    bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
-                elif men is not None:
-                    bot.delete_message(call.message.chat.id, men)
-                    keyboard = create_keyboard()
-                    men = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
-                #bot.send_message(call.message.chat.id, "This is the menu for tomorrow.", reply_markup=keyboard)
-                    bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
-        except FileNotFoundError:
+    
+    try:
+        with open(send, "rb") as photo:
+            if call.data == 'btn1' and men is not None:
+                bot.delete_message(call.message.chat.id, men)
+            if call.data == 'btn2' and tmt is not None:
+                bot.delete_message(call.message.chat.id, tmt)
+                
             keyboard = create_keyboard()
-            bot.send_message(call.message.chat.id, "No photo 'yet'..", reply_markup=keyboard)
-            bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
-
+            message_id = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
+            
+            if call.data == 'btn1':
+                men = message_id
+            elif call.data == 'btn2':
+                tmt = message_id
+    except FileNotFoundError:
+        bot.send_message(call.message.chat.id, "File not found :(")
 ##
 bot.infinity_polling()
