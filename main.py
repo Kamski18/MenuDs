@@ -105,7 +105,7 @@ def kukla(message):
 @bot.message_handler(commands=["tmr"])
 def tmr(message):
     refresh_date()
-    h = date.lstrip(0)
+    h = date.lstrip("0")
     n = int(h) + 1
     if n == 32:
         n = 1
