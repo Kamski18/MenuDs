@@ -156,8 +156,8 @@ def handle_query(call: CallbackQuery):
             with open(send, "rb") as photo:
                 global tmt
                 bot.delete_message(call.message.chat.id, tmt)
-                tmt = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
                 keyboard = create_keyboard()
+                tmt = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
                 #bot.send_message(call.message.chat.id, "This is the menu for tomorrow.", reply_markup=keyboard)
                 bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
         except FileNotFoundError:
