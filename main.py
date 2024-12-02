@@ -145,8 +145,8 @@ def handle_query(call: CallbackQuery):
         with open(send, "rb") as photo:
             if call.data == 'btn1' and men is not None:
                 bot.delete_message(call.message.chat.id, men)
-            #if call.data == 'btn2' and tmt is not None:
-                #bot.delete_message(call.message.chat.id, tmt)
+            if call.data == 'btn2' and men is not None:
+                bot.delete_message(call.message.chat.id, men)
                 
             keyboard = create_keyboard()
             message_id = bot.send_photo(call.message.chat.id, photo, reply_markup=keyboard).message_id
