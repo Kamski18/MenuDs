@@ -143,9 +143,10 @@ def handle_query(call: CallbackQuery):
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
     
     elif call.data == 'btn2':
-        n = 
+        n = int(h) + 1
+        if n == 32:
+            n = 1
           # Assuming the menus reset after 31
-        
         send = f"menus/{n}.png"
         try:
             with open(send, "rb") as photo:
