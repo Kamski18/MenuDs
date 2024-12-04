@@ -106,7 +106,7 @@ def kukla(message):
 #--- tmr command function ---#
 
 @bot.message_handler(commands=["tmr"])
-def tmr(message):
+def tmrr(message):
     refresh_date()
     h = date.lstrip("0")
     n = tmr
