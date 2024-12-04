@@ -1,4 +1,4 @@
-import telebot 
+noimport telebot 
 import os
 from dotenv import load_dotenv
 from pytz import timezone
@@ -16,6 +16,7 @@ day = today.strftime("%d / %B / %Y")
 
 tmr = today + timedelta(days=1)
 tmr = tmr.strftime("%d").lstrip("0")
+
 
 def create_keyboard():
     keyboard = km()
@@ -53,7 +54,7 @@ def start(message):
 @bot.message_handler(commands=["call"])
 def call(message):
     if idss != "":
-        bot.send_message(message.chat.id, idss)
+        bot.send_message(message.chat.id, tmr)
     else:
         bot.send_message(message.chat.id, "nothing yet to see")
 
