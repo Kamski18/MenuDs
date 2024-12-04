@@ -14,6 +14,9 @@ today = datetime.now(tz)
 date = today.strftime("%d")
 day = today.strftime("%d / %B / %Y")
 
+tmr = today + timedelta(days=1)
+tmr = tmr.strftime("%d")
+
 def create_keyboard():
     keyboard = km()
     button1 = kb("Menu", callback_data="btn1")
@@ -105,7 +108,7 @@ def kukla(message):
 def tmr(message):
     refresh_date()
     h = date.lstrip("0")
-    n = int(h) + 1
+    n = tmr
     if n == 32:
         n = 1
     send = f"menus/{n}.png"
