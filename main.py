@@ -15,7 +15,7 @@ date = today.strftime("%d")
 day = today.strftime("%d / %B / %Y")
 
 tmr = today + timedelta(days=1)
-tmr = tmr.strftime("%d")
+tmr = tmr.strftime("%d").lstrip("0")
 
 def create_keyboard():
     keyboard = km()
@@ -146,7 +146,7 @@ def handle_query(call: CallbackQuery):
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
     
     elif call.data == 'btn2':
-        n = int(h) + 1
+        n = tmr
         if n == 32:
             n = 1
           # Assuming the menus reset after 31
