@@ -53,7 +53,7 @@ def start(message):
 
 @bot.message_handler(commands=["call"])
 def call(message):
-    if idss != "":
+    if 1 == 1:
         bot.send_message(message.chat.id, tmr)
     else:
         bot.send_message(message.chat.id, "nothing yet to see")
