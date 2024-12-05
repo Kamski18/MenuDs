@@ -15,7 +15,7 @@ date = today.strftime("%d")
 day = today.strftime("%d / %B / %Y")
 
 tmr = today + timedelta(days=1)
-tmr = tmr.strftime("%d")
+tmr = tmr.strftime("%d").lstrip("0")
 
 
 def create_keyboard():
