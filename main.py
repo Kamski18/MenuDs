@@ -15,7 +15,7 @@ date = today.strftime("%d")
 day = today.strftime("%d / %B / %Y")
 
 tmr = today + timedelta(days=1)
-tmr = tmr.strftime("%d").lstrip("0")
+tmrw = tmr.strftime("%d").lstrip("0")
 
 
 def create_keyboard():
@@ -109,7 +109,7 @@ def kukla(message):
 def tmrr(message):
     refresh_date()
     h = date.lstrip("0")
-    n = tmr
+    n = tmrw
     if n == 32:
         n = 1
     send = f"menus/{n}.png"
@@ -147,7 +147,7 @@ def handle_query(call: CallbackQuery):
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
     
     elif call.data == 'btn2':
-        n = tmr
+        n = tmrw
         if n == 32:
             n = 1
           # Assuming the menus reset after 31
