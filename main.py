@@ -33,7 +33,7 @@ bot = telebot.TeleBot(API_KEY)
 #--- Refresh date function ---#
 
 def refresh_date():
-    global today, date, day
+    global today, date, day, tmr, tmrw
     today = datetime.now(tz)
     date = today.strftime("%d")
     day = today.strftime("%d : %B : %Y")
