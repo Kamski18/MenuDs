@@ -37,6 +37,8 @@ def refresh_date():
     today = datetime.now(tz)
     date = today.strftime("%d")
     day = today.strftime("%d : %B : %Y")
+    tmr = today + timedelta(days=1)
+    tmrw = tmr.strftime("%d").lstrip("0")
 
 #--- Start command function ---#
 
