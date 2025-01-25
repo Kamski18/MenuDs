@@ -81,6 +81,30 @@ def menu(message):
 
 #--- dd56 command function ---#
 
+
+@bot.message_handler(func=lambda message: message.text.startswith("/"))
+def dynamic_date_menu(message):
+    try:
+        command = message.text.lstrip("/")
+        if command.isdigit():
+            date_num = int(command)
+            
+            if 1 <= date_num <= 31: 
+                send = f"menus/{date_num}.png"
+                try:
+                    with open(send, "rb") as photo:
+                        bot.send_photo(message.chat.id, photo)
+                        bot.send_message(message.chat.id, f"This is the menu for: {date_num}")
+                except FileNotFoundError:
+                    bot.send_message(message.chat.id, "Menu for the specified date is not found.")
+            else:
+                bot.send_message(message.chat.id, "Please provide a valid date between 1 and 31.")
+        else:
+            bot.send_message(message.chat.id, "Invalid command. Use a date number like '/15'.")
+    except Exception as e:
+        bot.send_message(message.chat.id, "An error occurred. Please try again.")
+
+
 @bot.message_handler(commands=["dd56"])
 def quiz(message):
     bot.send_message(message.chat.id, "Impressive..though it is not flexible")
